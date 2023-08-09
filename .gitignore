@@ -1,0 +1,5 @@
+node_modules
+.env
+
+public/auth-page.jpg
+public/main-page.jpg
