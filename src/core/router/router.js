@@ -1,6 +1,7 @@
 import { NotFound } from '@/components/screens/not-found/not-found.component'
 import { ROUTES } from './routes.data'
 import { Layout } from '@/components/layout/layout.component'
+import { $V } from '../vquery/vquery.lib'
 
 export class Router {
 	#routes = ROUTES
@@ -52,15 +53,17 @@ export class Router {
 	}
 
 	#render() {
-		const component = new this.#currentRoute.component()
+		const component = new this.#currentRoute.component().render()
+
 		if (!this.#layout) {
 			this.#layout = new Layout({
 				router: this,
-				children: component.render()
-			})
-			document.getElementById('app').innerHTML = this.#layout.render()
+				children: component
+			}).render()
+
+			$V('#app').append(this.#layout)
 		} else {
-			document.querySelector('main').innerHTML = component.render()
+			$V('#content').html('').append(component)
 		}
 	}
 }
