@@ -5,6 +5,7 @@ import template from './layout.template.html'
 import { $V } from '@/core/vquery/vquery.lib'
 import { Header } from './header/header.component'
 import ChildComponent from '@/core/components/child.component'
+import { Notification } from './notification/notification.component'
 
 export class Layout extends ChildComponent {
 	constructor({ router, children }) {
@@ -14,7 +15,7 @@ export class Layout extends ChildComponent {
 	}
 
 	render() {
-		this.element = renderService.htmlToElement(template, [], styles)
+		this.element = renderService.htmlToElement(template, [Notification], styles)
 
 		const mainElement = $V(this.element).find('main')
 
