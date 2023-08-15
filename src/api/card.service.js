@@ -1,11 +1,12 @@
 import { NotificationService } from '@/core/services/notification.service'
+import { Store } from '@/core/store/store'
 import { vareraQuery } from '@/core/varera-query/varera-query.lib'
 
 export class CardService {
 	#BASE_URL = '/cards'
 
 	constructor() {
-		// store
+		this.store = Store.getInstance()
 
 		this.notificationService = new NotificationService()
 	}
@@ -61,7 +62,7 @@ export class CardService {
 			method: 'PATCH',
 			body: {
 				amount: +amount,
-				// fromCardNumber: this.store.user.card.number,
+				fromCardNumber: this.store.user.card.number,
 				toCardNumber
 			},
 			onSuccess: () => {
