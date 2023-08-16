@@ -18,6 +18,15 @@ export class Header extends ChildComponent {
 		this.store.addObserver(this)
 
 		this.router = router
+
+		this.userItem = new UserItem(
+			{
+				avatarPath: '/',
+				name: 'Anonymous'
+			},
+			false,
+			() => alert()
+		)
 	}
 
 	update() {
@@ -26,6 +35,7 @@ export class Header extends ChildComponent {
 		const authSideElement = $V(this.element).find('#auth-side')
 		if (this.user) {
 			authSideElement.show()
+			this.userItem.update(this.user)
 			this.router.navigate('/')
 		} else {
 			authSideElement.hide()
@@ -45,15 +55,7 @@ export class Header extends ChildComponent {
 					router: this.router
 				}),
 				Search,
-				new UserItem(
-					{
-						avatarPath:
-							'https://avatars.dzeninfra.ru/get-zen_doc/4414226/pub_60b322993204ed6102ac6bb8_60b322c82174cf46a996d44b/scale_1200',
-						name: 'Valera'
-					},
-					false,
-					() => alert()
-				)
+				this.userItem
 			],
 			styles
 		)
