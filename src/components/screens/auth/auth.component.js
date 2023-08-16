@@ -3,7 +3,6 @@ import renderService from '@/core/services/render.service'
 import styles from './auth.module.scss'
 import template from './auth.template.html'
 import { BaseScreen } from '@/core/components/base-screen.component'
-import { Heading } from '@/components/ui/heading/heading.component'
 import { AuthService } from '@/api/auth.service'
 import { Button } from '@/components/ui/button/button.component'
 import { $V } from '@/core/vquery/vquery.lib'
@@ -37,6 +36,9 @@ export class Auth extends BaseScreen {
 	#handleSubmit = event => {
 		const formValues = formService.getFormValues(event.target)
 		if (!this.#validateFields(formValues)) return
+
+		const type = this.#isTypeLogin ? 'login' : 'register'
+		this.authService.main(type, formValues)
 	}
 
 	#changeFormType = event => {

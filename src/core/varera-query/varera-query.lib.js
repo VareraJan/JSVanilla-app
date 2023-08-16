@@ -29,7 +29,7 @@ export async function vareraQuery({
 		error = null,
 		data = null
 
-	const url = `${SERVER_URL}/api/${path}`
+	const url = `${SERVER_URL}/api${path}`
 
 	const accessToken = new StorageService().getItem(ACCESS_TOKEN_KEY)
 
