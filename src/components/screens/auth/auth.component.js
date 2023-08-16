@@ -8,6 +8,8 @@ import { AuthService } from '@/api/auth.service'
 import { Button } from '@/components/ui/button/button.component'
 import { $V } from '@/core/vquery/vquery.lib'
 import { Field } from '@/components/ui/field/field.component'
+import formService from '@/core/services/form.service'
+import validationService from '@/core/services/validation.service'
 
 export class Auth extends BaseScreen {
 	#isTypeLogin = true
@@ -17,8 +19,24 @@ export class Auth extends BaseScreen {
 		this.authService = new AuthService()
 	}
 
+	#validateFields(formValues) {
+		const emailLabel = $V(this.element).find('label:first-child')
+		const passwordLabel = $V(this.element).find('label:last-child')
+
+		if (!formValues.email) {
+			validationService.showError(emailLabel)
+		}
+
+		if (!formValues.password) {
+			validationService.showError(passwordLabel)
+		}
+
+		return formValues.email && formValues.password
+	}
+
 	#handleSubmit = event => {
-		console.log(event.target)
+		const formValues = formService.getFormValues(event.target)
+		if (!this.#validateFields(formValues)) return
 	}
 
 	#changeFormType = event => {
