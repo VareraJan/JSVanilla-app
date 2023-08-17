@@ -39,6 +39,16 @@ class VQuery {
 		}
 	}
 
+	/**
+	 * Find all elements that match the specified selector within the selected element.
+	 * @param {string} selector - A CSS selector string to search for within the selected element.
+	 * @returns {VQuery[]} An array of new VQuery instance for the found elements.
+	 */
+	findAll(selector) {
+		const elements = this.element.querySelectorAll(selector)
+		return Array.from(elements).map(element => new VQuery(element))
+	}
+
 	/* INSERT */
 
 	/**
