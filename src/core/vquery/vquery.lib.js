@@ -235,11 +235,13 @@ class VQuery {
 	 */
 	creditCardInput() {
 		const limit = 16
+		console.log(this.element.type)
 		if (
 			this.element.tagName.toLocaleLowerCase() !== 'input' ||
-			this.element.type !== 'number'
-		)
+			this.element.type !== 'text'
+		) {
 			throw new Error('Element must be an input with type "text"')
+		}
 
 		this.element.addEventListener('input', event => {
 			let value = event.target.value.replace(/[^0-9]/g, '')
