@@ -8,6 +8,7 @@ import { Store } from '@/core/store/store'
 import { $V } from '@/core/vquery/vquery.lib'
 import { formatCardNumber } from '@/utils/format/format-card-numbers'
 import { formatToCurrency } from '@/utils/format/format-to-currency'
+import { BALANCE_UPDATED } from '@/constants/event.constants'
 
 const CODE = '*****'
 
@@ -19,6 +20,24 @@ export class CardInfo extends ChildComponent {
 		this.cardService = new CardService()
 
 		this.element = renderService.htmlToElement(template, [], styles)
+
+		this.#addListeners()
+	}
+
+	#addListeners() {
+		document.addEventListener(BALANCE_UPDATED, this.#onBalanceUpdated)
+	}
+
+	#removeListeners() {
+		document.removeEventListener(BALANCE_UPDATED, this.#onBalanceUpdated)
+	}
+
+	#onBalanceUpdated = () => {
+		this.fetchData()
+	}
+
+	destroy() {
+		this.#removeListeners()
 	}
 
 	#copyCardNumber(e) {
