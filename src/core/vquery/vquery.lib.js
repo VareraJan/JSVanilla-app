@@ -235,7 +235,6 @@ class VQuery {
 	 */
 	creditCardInput() {
 		const limit = 16
-		console.log(this.element.type)
 		if (
 			this.element.tagName.toLocaleLowerCase() !== 'input' ||
 			this.element.type !== 'text'
