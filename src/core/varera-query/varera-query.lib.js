@@ -74,6 +74,8 @@ export async function vareraQuery({
 		if (errorData && onError) {
 			onError(errorMessage)
 		}
+
+		new NotificationService().show('error', errorMessage)
 	} finally {
 		isLoading = false
 	}
